@@ -314,7 +314,6 @@
                 },
                 body: JSON.stringify(data),
             })
-                .then(res => res.json())
                 .then(response => {
                     if (response.result === "success") {
                         console.log("Data sent to Google Sheets!");
