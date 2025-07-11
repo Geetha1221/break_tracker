@@ -2,8 +2,14 @@
 <html lang="en">
 
 <head>
+    
     <meta charset="UTF-8">
+    <meta name="referrer" content="no-referrer">
+    <link rel="icon" href="favicon.png" type="image/png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Break Tracker</title>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <style>
         * {
             box-sizing: border-box;
@@ -11,8 +17,6 @@
 
         body {
             font-family: sans-serif;
-            margin: 0;
-            padding: 0;
             height: 100vh;
             display: flex;
             justify-content: center;
@@ -22,28 +26,38 @@
             background-position: center;
             transition: background-image 0.3s ease-in-out;
             background-image: linear-gradient(to bottom, #87ceeb, #4682b4);
+            padding: 2rem 1.25rem 1.25rem;
+            margin: 0;
         }
 
         .form-container {
-            max-width: 400px;
+            max-width: 37.5rem;
+            /* 600px */
             width: 100%;
-            padding: 30px;
-            border-radius: 20px;
+            padding: 1.875rem;
+            /* 30px */
+            border-radius: 1.25rem;
+            /* 20px */
             background-color: rgba(255, 255, 255, 0.95);
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 0 1.25rem rgba(0, 0, 0, 0.3);
+            /* 20px */
+            margin-top: 2.5rem;
+            /* 40px */
+
         }
 
         legend {
             text-align: center;
-            font-size: 28px;
+            font-size: 1.75rem;
+            /* 28px */
             font-weight: bold;
-            margin-bottom: 20px;
+            margin-bottom: 1.25rem;
             color: #333;
         }
 
         .form-label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 0.5rem;
             font-weight: bold;
             color: #333;
         }
@@ -51,25 +65,26 @@
         .form-input,
         .form-select {
             width: 100%;
-            height: 45px;
-            margin-bottom: 20px;
-            padding: 10px 12px;
+            height: 2.8125rem;
+            /* 45px */
+            margin-bottom: 1.25rem;
+            padding: 0.625rem 0.75rem;
             border: 1px solid #ccc;
-            border-radius: 8px;
+            border-radius: 0.5rem;
             background-color: #f9f9f9;
-            font-size: 16px;
+            font-size: 1rem;
             outline: none;
         }
 
         .form-button {
             width: 100%;
-            height: 45px;
-            margin-top: 10px;
-            padding: 10px;
+            height: 2.8125rem;
+            margin-top: 0.625rem;
+            padding: 0.625rem;
             border: none;
-            border-radius: 8px;
+            border-radius: 0.5rem;
             color: #fff;
-            font-size: 18px;
+            font-size: 1.125rem;
             cursor: pointer;
         }
 
@@ -103,46 +118,47 @@
 
         #breakSection {
             text-align: center;
-            padding: 20px;
-            border-radius: 20px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            padding: 1.25rem;
+            border-radius: 1.25rem;
+            box-shadow: 0 0 1.25rem rgba(0, 0, 0, 0.3);
             width: 90%;
-            max-width: 500px;
+            max-width: 31.25rem;
+            /* 500px */
             background-color: rgba(255, 255, 255, 0.9);
         }
 
         #breakTitle {
-            font-size: 24px;
+            font-size: 1.5rem;
             color: #333;
         }
 
         #startTimeDisplay,
         #endTimeDisplay {
-            font-size: 18px;
-            margin: 10px 0;
+            font-size: 1.125rem;
+            margin: 0.625rem 0;
             color: #000;
         }
 
         #countdownTimer {
-            font-size: 20px;
-            margin: 10px 0;
+            font-size: 1.25rem;
+            margin: 0.625rem 0;
             color: #d32f2f;
             font-weight: bold;
         }
 
         #thankYouMsg {
-            font-size: 20px;
+            font-size: 1.25rem;
             color: green;
-            margin-top: 20px;
+            margin-top: 1.25rem;
         }
 
         #startBtn,
         #endBtn {
-            font-size: 18px;
-            padding: 12px 24px;
+            font-size: 1.125rem;
+            padding: 0.75rem 1.5rem;
             border: none;
-            border-radius: 8px;
-            margin: 10px;
+            border-radius: 0.5rem;
+            margin: 0.625rem;
             background-color: #4CAF50;
             color: white;
             cursor: pointer;
@@ -150,24 +166,76 @@
 
         @media (max-width: 480px) {
             .form-container {
-                padding: 20px;
+                padding: 1.25rem;
             }
 
             .form-label,
             .form-input,
             .form-select,
             .form-button {
-                font-size: 14px;
-                height: 40px;
+                font-size: 0.875rem;
+                height: 2.5rem;
             }
 
             #startBtn,
             #endBtn {
-                font-size: 16px;
-                padding: 10px 20px;
+                font-size: 1rem;
+                padding: 0.625rem 1.25rem;
             }
         }
+
+        .select2-container--default .select2-selection--single {
+            height: 2.8125rem !important;
+            padding: 0.625rem 0.75rem;
+            border: 1px solid #ccc !important;
+            border-radius: 0.5rem !important;
+            background-color: #f9f9f9 !important;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.25rem;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            color: #333;
+            line-height: normal;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 100%;
+            right: 0.625rem;
+        }
+
+        .select2-container--default .select2-results__option {
+            font-size: 1rem;
+        }
+
+        .select2-container {
+            width: 100% !important;
+        }
+
+        .select2-container--default .select2-selection--single:hover {
+            border-color: #888 !important;
+        }
+
+        .select2-container--default .select2-selection--single:focus {
+            outline: none !important;
+            box-shadow: 0 0 0 0.125rem rgba(33, 150, 243, 0.2);
+            border-color: #2196f3;
+        }
+
+        html,
+        body {
+            overflow: auto;
+            scrollbar-width: none;
+        }
+
+        html::-webkit-scrollbar,
+        body::-webkit-scrollbar {
+            display: none;
+        }
     </style>
+
 </head>
 
 <body>
@@ -186,11 +254,29 @@
                 <option value="D3">D3</option>
                 <option value="D4">D4</option>
                 <option value="D5">D5</option>
-                <option value="T1">T1</option>
+                <option value="TOFFLES">TOFFLES</option>
             </select>
 
             <label for="name" class="form-label">Name:</label>
-            <input type="text" id="name" name="name" class="form-input" placeholder="Enter your Name" required>
+            <select id="name" name="name" class="form-select select2" required>
+                <option value="">Select Name</option>
+            </select>
+            <label for="designation" class="form-label">Designation:</label>
+            <select id="designation" name="designation" class="form-select" required>
+                <option value="">Select Designation</option>
+                <option value="Admin">Admin</option>
+                <option value="Supervisor">Supervisor</option>
+                <option value="Sales Executive">Sales Executive</option>
+                <option value="Associates">Associates</option>
+                <option value="Consultants">Consultants</option>
+                <option value="Captains">Captains</option>
+                <option value="House keeping">House keeping</option>
+                <option value="Auxiliary">Auxiliary</option>
+                <option value="CRE">CRE</option>
+                <option value="Production">Production</option>
+                <option value="Security Guards">Security Guards</option>
+            </select>
+
 
             <button type="button" class="form-button btn-morning" data-break="morning">Morning Break</button>
             <button type="button" class="form-button btn-lunch" data-break="lunch">Lunch Break</button>
@@ -207,10 +293,12 @@
         <button id="endBtn" class="hidden">End</button>
         <p id="thankYouMsg" class="hidden">Thank you! Redirecting...</p>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <script>
         const form = document.getElementById('breakForm');
-        const nameInput = document.getElementById('name');
+        const nameInput = $('#name');
         const dateInput = document.getElementById('date');
         const breakSection = document.getElementById('breakSection');
         const breakTitle = document.getElementById('breakTitle');
@@ -220,6 +308,8 @@
         const startTimeDisplay = document.getElementById('startTimeDisplay');
         const endTimeDisplay = document.getElementById('endTimeDisplay');
         const countdownTimer = document.getElementById('countdownTimer');
+        const designationInput = document.getElementById('designation');
+
 
         let currentBreakType = '';
         let startTime = null;
@@ -233,15 +323,95 @@
             evening: 'https://images2.alphacoders.com/106/thumb-1920-1064521.jpg'
         };
 
-        dateInput.value = new Date().toISOString().slice(0, 10);
+        const storeNames = {
+            D1: [
+                "PRAKASH S", "MAMATHA B", "JAYANTH KR", "SANGEETHA S", "AVIL KUMAR B M", "KENDAGANNA SWAMY N",
+                "LOKESH B", "JARI PRAKASH J", "JAYANTH B", "RANGASWAMY R", "PRAMODA", "PADMARAJ K", "SUNIL R",
+                "GAYATHRI N", "JAYALAKSHMI R", "DIVYASHREE S", "SAHANA D", "MANASA S", "PUNEETHA C",
+                "RAJESHWARI", "RANJITHA B", "RAMYA H M", "SREEKANTH N", "SHRUTHI", "D S NARASIMHA",
+                "VIJAYALAKSHMI", "MANJULA H R", "BISHAL DARNAL", "ANAND B M"
+            ],
+            D3: [
+                "SUCHITHRA", "SONU G", "ANJALI K N", "HARSHITHA N", "PREETHU N", "DIVYASHREE T", "PRAMOD ANAND",
+                "MAHADEV PRASAD M", "SWAMY M R", "JITHESH U", "TEJAS", "MALLESH B K", "M MAHADEVASWAMY",
+                "VINAYAK", "DARSHAN T M", "VIJAY K", "DILEEP G", "DILEEP K", "SHARATH P", "SUHAS C S",
+                "JOSELITA A", "SINCHANA K", "ARPITHA", "MONIKA", "GEETHA B J", "DEVASUNDARI", "ANIL N",
+                "RIZWAN SHARIFF", "ASHA", "RASHMI M", "SINCHANA S", "RAM PRASHAD MISHRA", "YAM LUNGELI MAGAR",
+                "MAHESH M", "DORESWAMY", "MOHARA MANMOHAN"
+            ],
+            D4: [
+                "AVINASH P", "KUMARSWAMY", "SANJAY POPATLAL DEDHIA", "ANURADHA D JAIN", "BABITA SUBBA",
+                "JAHNAVI N", "MEENA M", "ROOPA N", "NEHA LIMBU", "NIKITA MUNDA", "THONGAM MONA DEVI",
+                "SUMAN PASWAN", "ANAMIKA PRADHAN", "PRISKA ORAON", "SAGAR KHADKA", "YOGESH M S",
+                "DEEPAK SEJWAL", "S K MEHEDI", "YOSUF MOLLA", "S K ALAMGIR", "IBRAHIM BAIDYA", "TUHIN PRAMANIK",
+                "MIR HASSIBUL RAHAMAN", "NUR AMIN MIR", "S K ISRAFILL", "ANICH AU MOLLA", "RAMIJ MALLICK",
+                "S K MD RAFIQUE", "S K ISRAFIL", "SAFIULLA MOLLA", "RAKIBUL MOLLA"
+            ],
+            D5: [
+                "B S CHANDRASHEKHAR", "SRINIVASU K", "MAHESH S", "SUNIL BHANDARI", "NAVEEN M", "SHIVADANDAYAKA N",
+                "RAVI CHANDRA S", "RAJESH M B", "RAJESH M S", "LINGARAJU T M", "RAVI S K", "CHANDAN KUMAR K H",
+                "PRAJWAL S", "MADHUKUMAR K N", "CHETAN KUMAR A N", "NAGESH B", "AKASH R", "SHARATH KUMAR",
+                "BISHAL BIST", "NANDAN", "ANJIKUMAR NAIK", "V R PUNEETH KUMAR", "PRABHAKAR T",
+                "MAHADEVADARSHAN H P", "NAGA BHAVYA", "KIRAN H POPTANI", "SANIDHYA S", "M R POOJITHA",
+                "NIYASHI R", "KOMMI NISHITHA", "ANJANA JAIN", "PREMANJALI KISPOTTA", "MANDARA K V",
+                "KEERTHI S SHIVANAIKAR", "J AMIRTHA VARSHINI", "SIRISHA S", "PRIYA", "UMA MAHESHWARI",
+                "VINESSHA MUTHUKUMAR", "NIDHI RUBY CHOWDHURY", "MAHESHWARI R", "H A DEEPTHI", "AMBIKA",
+                "BHAGYASHREE", "SIDDAMMA", "RAJESHWARI", "RAGINA ORAON", "PUKHRAMBAM ANAMIKA DEVI"
+            ],
+            TOFFLES: [
+                "AJITH LM", "SUGUNA K", "ANJALI C", "PUNITHKUMAR BN", "SATHISHKUMAR MB", "BHASKAR",
+                "SANTHOSHKUMAR MV", "PRABHUDEVA", "KAVYA B", "SEEMA M", "DIVYASHREE", "SUPRIYA MS",
+                "SARITHA M", "SUNITHA", "GOVIND", "PRASANNA", "DHANUSH N", "B MAHADEVSWAMI (KUMAR)",
+                "RAKESHGOWDA N", "YOGESH R", "BHARATH MISHRA", "PREM BAHADUR ACHARYA (GOPAL)", "SK SARFADDIN",
+                "NIYAMTULLA MOLLA", "SABIR ALI SEKH", "SADDAM LASKAR", "SAGIR ALI SEKH", "THANMAY DAS",
+                "CHANDAN SHEE"
+            ],
+        };
 
-        nameInput.addEventListener('input', () => {
-            const formatted = nameInput.value
+
+        dateInput.value = new Date().toISOString().slice(0, 10);
+        // Initialize Select2
+        nameInput.select2({
+            placeholder: "Select your name",
+            allowClear: true,
+            dropdownParent: $('#breakForm')
+        });
+        $('#name').on('select2:open', () => {
+            setTimeout(() => {
+                document.querySelector('.select2-container--open .select2-search__field')?.focus();
+            }, 0);
+        });
+
+        // Handle store change to update name options
+        $('#store').on('change', function () {
+            const store = this.value;
+            const options = storeNames[store] || [];
+
+            nameInput.empty().append(`<option value=""></option>`);
+            options.forEach(name => {
+                nameInput.append(`<option value="${name}">${name}</option>`);
+            });
+
+            // Re-trigger change to reset selection and placeholder
+            nameInput.val(null).trigger('change');
+        });
+
+        // Capitalize name after selection or typing manually (if allowed)
+        nameInput.on('select2:select select2:unselect input', function () {
+            const selectedText = nameInput.val();
+            if (!selectedText) return;
+
+            const formatted = selectedText
                 .toLowerCase()
                 .split(' ')
                 .map(w => w.charAt(0).toUpperCase() + w.slice(1))
                 .join(' ');
-            nameInput.value = formatted;
+
+            // Set formatted value if not already
+            if (formatted !== selectedText) {
+                nameInput.find(`option[value="${selectedText}"]`).text(formatted);
+                nameInput.val(selectedText).trigger('change.select2');
+            }
         });
 
         document.querySelectorAll('button[data-break]').forEach(button => {
@@ -255,6 +425,11 @@
                 breakTitle.textContent = `${capitalize(currentBreakType)} Break`;
 
                 document.body.style.backgroundImage = `url('${backgroundImages[currentBreakType]}')`;
+                document.body.style.backgroundRepeat = 'no-repeat';
+                document.body.style.backgroundSize = 'cover';
+                document.body.style.backgroundPosition = 'center';
+
+
 
                 breakSection.classList.remove('hidden');
                 form.classList.add('hidden');
@@ -299,27 +474,25 @@
             const data = {
                 date: dateInput.value,
                 store: document.getElementById('store').value,
-                name: nameInput.value,
+                name: nameInput.val(),
                 breakType: capitalize(currentBreakType),
                 startTime: startTime.toLocaleTimeString(),
-                endTime: endTime.toLocaleTimeString()
+                endTime: endTime.toLocaleTimeString(),
+                designation: designationInput.value,
+
             };
 
             console.log("Break Data:", data);
 
-            fetch("https://script.google.com/macros/s/AKfycbyCIBWmtUNWvLngHbnoA0J7Y06KVbuDe0TlYDf3ASW6672cohn6kCiX5HHU4tSupo3m/exec", {
+            fetch("https://script.google.com/macros/s/AKfycby68LWZTXSZ2Cw3Bw1N_owXm3h0SZwupACL3URNjXyfYQUuv9CtGvIKrzoKWfGqFTaE/exec", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(data),
+                mode: "no-cors"
             })
                 .then(response => {
-                    if (response.result === "success") {
-                        console.log("Data sent to Google Sheets!");
-                    } else {
-                        console.error("Error: " + response.message);
-                    }
                 });
 
             setTimeout(() => {
@@ -328,6 +501,8 @@
                 breakSection.classList.add('hidden');
                 form.classList.remove('hidden');
                 document.body.style.backgroundImage = '';
+                nameInput.val('').trigger('change.select2');
+
             }, 5000);
         });
 
