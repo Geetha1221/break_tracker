@@ -455,14 +455,13 @@
         }
 
         startBtn.addEventListener('click', () => {
-let rem_time = currentBreakType == "lunch"? 30 : 15;
             startTime = new Date();
-            expectedEndTime = new Date(startTime.getTime() + rem_time * 60000); // +15 min
+            expectedEndTime = new Date(startTime.getTime() + (currentBreakType == "lunch" ? 30 * 60000 : 15 * 60000)); // +15 min or 30 mins if lunch
             startTimeDisplay.textContent = `Start Time: ${startTime.toLocaleTimeString()}`;
             endTimeDisplay.textContent = `Expected End: ${expectedEndTime.toLocaleTimeString()}`;
             startBtn.classList.add('hidden');
             endBtn.classList.remove('hidden');
-            startCountdown(15 * 60);
+            startCountdown(currentBreakType == "lunch" ? 30 * 60 : 15 * 60);
         });
 
         endBtn.addEventListener('click', () => {
