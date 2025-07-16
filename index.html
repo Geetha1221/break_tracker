@@ -527,6 +527,73 @@
                 }
             }, 1000);
         }
+
+
+
+
+
+        // === Save session state to localStorage ===
+function saveState() {
+    const state = {
+        currentBreakType,
+        startTime: startTime ? startTime.toISOString() : null,
+        expectedEndTime: expectedEndTime ? expectedEndTime.toISOString() : null,
+        formData: {
+            date: dateInput.value,
+            store: document.getElementById('store').value,
+            name: nameInput.val(),
+            designation: designationInput.value
+        }
+    };
+    localStorage.setItem('breakTrackerState', JSON.stringify(state));
+}
+
+
+function restoreState() {
+    const saved = localStorage.getItem('breakTrackerState');
+    if (!saved) return;
+
+    const state = JSON.parse(saved);
+    if (!state || !state.startTime) return;
+
+    currentBreakType = state.currentBreakType;
+    startTime = new Date(state.startTime);
+    expectedEndTime = new Date(state.expectedEndTime);
+
+
+    dateInput.value = state.formData.date;
+    $('#store').val(state.formData.store).trigger('change');
+    setTimeout(() => {
+        nameInput.val(state.formData.name).trigger('change.select2');
+    }, 100); 
+    designationInput.value = state.formData.designation;
+
+    breakTitle.textContent = `${capitalize(currentBreakType)} Break`;
+    document.body.style.backgroundImage = `url('${backgroundImages[currentBreakType]}')`;
+    document.body.style.backgroundRepeat = 'no-repeat';
+    document.body.style.backgroundSize = 'cover';
+    document.body.style.backgroundPosition = 'center';
+
+    form.classList.add('hidden');
+    breakSection.classList.remove('hidden');
+    startBtn.classList.add('hidden');
+    endBtn.classList.remove('hidden');
+
+    startTimeDisplay.textContent = `Start Time: ${startTime.toLocaleTimeString()}`;
+    endTimeDisplay.textContent = `Expected End: ${expectedEndTime.toLocaleTimeString()}`;
+
+    const remainingTime = Math.floor((expectedEndTime - new Date()) / 1000);
+    if (remainingTime > 0) {
+        startCountdown(remainingTime);
+    } else {
+        countdownTimer.textContent = "Break time is up!";
+    }
+}
+
+window.addEventListener('beforeunload', saveState);
+
+window.addEventListener('DOMContentLoaded', restoreState);
+
     </script>
 </body>
 
